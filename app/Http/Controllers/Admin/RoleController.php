@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-       $roles=Role::latest()->paginate(6);
+       $roles=Role::with('permissions')->latest()->paginate(6);
        return Inertia::render('Admin/Setting/Role/Index',[
         'roles'=>$roles,
        ]);
@@ -41,12 +41,10 @@ class RoleController extends Controller
     {
         {
 
+            // dd($request->all());
             $role = Role::create($request->validated());
-            if (!empty($request->permission)) {
-                foreach ($request->permission as $name) {
-                    $role->givePermissionTo($name);
-                }
-            }
+            $permissions = Permission::whereIn('id', $request->permissions)->get();
+            $role->syncPermissions($permissions);
             return to_route('admin.roles.index')->with('success', 'Role created successfully');
         }
     }

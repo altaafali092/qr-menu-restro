@@ -16,19 +16,26 @@ class AuthSeeder extends Seeder
      */
      public function run(): void
     {
-        $superAdminRole = Role::updateOrCreate(['name' => 'superadmin']);
+        {
+            // Create or get superadmin role
+            $superAdminRole = Role::updateOrCreate(['name' => 'superadmin']);
 
-        $user = User::updateOrCreate(
-            ['email' => 'admin@admin.com'], // only check by unique field
-            [
-                'name' => 'Super Admin',
-                'password' => Hash::make('password')
-            ]
-        );
+            // Create superadmin user
+            $user = User::updateOrCreate(
+                ['email' => 'admin@admin.com'],
+                [
+                    'name' => 'Super Admin',
+                    'password' => Hash::make('password')
+                ]
+            );
 
+            // Assign role to user
+            $user->assignRole($superAdminRole);
 
-         $user->assignRole($superAdminRole);
-        $permissions = Permission::all();
-        $superAdminRole->syncPermissions($permissions);
+            // Give all permissions to superadmin role
+            $permissions = Permission::all(); // Make sure PermissionSeeder runs first
+            $superAdminRole->syncPermissions($permissions);
+        }
+
     }
 }

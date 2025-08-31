@@ -7,9 +7,6 @@ import { Role } from "@/types/Admin/Setting/role";
 
 
 
-
-
-
 export const columns: ColumnDef<Role>[] = [
     {
         id: "serial",
@@ -25,9 +22,25 @@ export const columns: ColumnDef<Role>[] = [
         header: "Permissions",
         cell: ({ row }) => {
             const role = row.original; // assuming row.original is your Role object
-            // role.permissions could be an array of Permission objects
+
             if (role.permissions && role.permissions.length > 0) {
-                return role.permissions.map(p => p.name).join(", "); // comma-separated
+                const permissionNames = role.permissions.map(p => p.name);
+                const chunks = [];
+
+                // Split permissions into chunks of 4
+                for (let i = 0; i < permissionNames.length; i += 4) {
+                    chunks.push(permissionNames.slice(i, i + 4));
+                }
+
+                return (
+                    <div className="space-y-1">
+                        {chunks.map((chunk, index) => (
+                            <div key={index}>
+                                {chunk.join(", ")}
+                            </div>
+                        ))}
+                    </div>
+                );
             }
             return "No permissions";
         }
