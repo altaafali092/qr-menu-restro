@@ -1,16 +1,13 @@
 import AppLayout from '@/layouts/app-layout';
-
-
 import { Button } from '@/components/ui/button';
-
 import { type BreadcrumbItem, type PaginatedData } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { Permission } from '@/types/Admin/Setting/permisson';
-import { DataTable } from './data-table';
 import { columns } from './columns';
 import { ServerPagination } from '../../../../components/ServerPagination';
 import { create, index } from '@/routes/admin/permissions';
+import { DataTable } from '@/components/data-table';
 
 interface Props {
   permissions: PaginatedData<Permission>;

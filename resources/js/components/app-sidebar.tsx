@@ -4,11 +4,12 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import {  LayoutGrid, LucideSettings2, Shield } from 'lucide-react';
+import {  LayoutGrid, LucideSettings2, Shield, UserCheck } from 'lucide-react';
 import AppLogo from './app-logo';
 
 import { dashboard } from '@/routes/admin';
-import { index } from '@/routes/admin/permissions';
+import { index as permissionsIndex } from '@/routes/admin/permissions';
+import { index as rolesIndex } from '@/routes/admin/roles';
 
 
 
@@ -27,8 +28,13 @@ const mainNavItems: NavItem[] = [
         items:[
             {
                 title: "Permissions",
-                href: index(),
+                href: permissionsIndex(),
                 icon: Shield
+            },
+            {
+                title: "Roles",
+                href: rolesIndex(),
+                icon: UserCheck
             }
         ]
     }

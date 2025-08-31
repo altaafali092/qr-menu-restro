@@ -64,7 +64,7 @@ class PermissionController extends Controller
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
         $permission->update($request->validated());
-        return to_route('admin.settings-permissions.index')
+        return to_route('admin.permissions.index')
             ->with('success', 'Permission updated successfully');
     }
 
