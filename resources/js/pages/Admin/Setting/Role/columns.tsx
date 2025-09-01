@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Link, router } from "@inertiajs/react";
-import { Pencil, ScanEye, Trash } from "lucide-react";
+import { EyeIcon, Pencil, ScanEye, Trash } from "lucide-react";
 import { destroy, edit, show } from "@/routes/admin/roles";
 import { Role } from "@/types/Admin/Setting/role";
 
@@ -58,6 +58,11 @@ export const columns: ColumnDef<Role>[] = [
                     <Button variant="outline" size="sm" asChild>
                         <Link href={edit(role.id)}>
                             <Pencil className="h-4 w-4" />
+                        </Link>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild>
+                        <Link href={show(role.id)}>
+                            <EyeIcon className="h-4 w-4" />
                         </Link>
                     </Button>
 
