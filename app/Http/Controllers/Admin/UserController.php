@@ -53,9 +53,13 @@ class UserController extends Controller
 
 
 
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        $user->load('roles');
+
+        return Inertia::render('Admin/Setting/User/Show',[
+         'user'=>$user
+        ]);
     }
 
     /**
