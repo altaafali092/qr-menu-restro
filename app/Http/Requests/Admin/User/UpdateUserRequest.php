@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
             'email' => [ 'string','email','max:255',
                 Rule::unique('users')->ignore($this->user)
             ],
-            'password' => ['nullable', 'confirmed', Password::min(5)->letters()],
+            'password' => ['nullable', Password::min(5)->letters()],
             'role'=>['required','array','exists:roles,name']
         ];
     }

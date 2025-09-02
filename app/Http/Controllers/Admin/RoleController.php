@@ -39,14 +39,14 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        {
 
-            // dd($request->all());
+
+            dd($request->all());
             $role = Role::create($request->validated());
             $permissions = Permission::whereIn('id', $request->permissions)->get();
             $role->syncPermissions($permissions);
             return to_route('admin.roles.index')->with('success', 'Role created successfully');
-        }
+
     }
 
     /**

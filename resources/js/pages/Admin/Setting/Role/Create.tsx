@@ -22,10 +22,9 @@ interface PageProps {
 }
 
 export default function CreateRole() {
-  const { permissions } = usePage<PageProps>().props;
+  const { permissions } = usePage<{ props: PageProps }>().props;
 
   const handleCancel = () => window.history.back();
-
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Create Role" />

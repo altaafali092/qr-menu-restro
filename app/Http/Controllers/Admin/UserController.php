@@ -45,7 +45,7 @@ class UserController extends Controller
             ['password' => bcrypt($request->password)]
         ));
         $user->syncRoles($request->role);
-        return to_route('admin')->with('success', 'User created successfully.');
+        return to_route('admin.users.index')->with('success', 'User created successfully.');
     }
 
     /**
