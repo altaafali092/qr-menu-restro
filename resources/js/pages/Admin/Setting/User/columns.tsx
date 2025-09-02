@@ -22,6 +22,25 @@ export const columns: ColumnDef<User>[] = [
         accessorKey: "email",
         header: "Email",
     },
+    {
+        accessorKey: "Role",
+        header: "Role",
+        cell: ({ row }) => {
+            const user = row.original;
+            return (
+                <div className="flex flex-wrap gap-1">
+                    {user.roles?.map((role) => (
+                        <span
+                            key={role.id}
+                            className="inline-flex items-center rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-gray-700"
+                        >
+                            {role.name}
+                        </span>
+                    ))}
+                </div>
+            );
+        },
+    },
 
 
 

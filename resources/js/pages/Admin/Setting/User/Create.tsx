@@ -113,7 +113,7 @@ export default function CreateUser() {
                                                     <div key={role.id} className="flex items-center gap-2">
                                                         <Checkbox
                                                             id={`role-${role.id}`}
-                                                            name="roles[]"
+                                                            name="role[]"
                                                             value={role.id}
                                                         />
                                                         <Label htmlFor={`role-${role.id}`}>{role.name}</Label>

@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::latest()->paginate(7);
+        $users=User::with('roles')->latest()->paginate(7);
         return Inertia::render('Admin/Setting/User/Index',[
             'users'=>$users
         ]);
@@ -40,17 +40,19 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        // dd($request->all());
         $user=User::create(array_merge(
             $request->validated(),
             ['password' => bcrypt($request->password)]
         ));
-        $user->syncRoles($request->role);
+        $roles = Role::whereIn('id', $request->role)->pluck('name')->toArray();
+        $user->syncRoles($roles);
+
         return to_route('admin.users.index')->with('success', 'User created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
+
     public function show(string $id)
     {
         //
@@ -63,7 +65,7 @@ class UserController extends Controller
     {
         $roles = Role::orderBy('name', 'ASC')->get();
         $hasRoles = $user->roles->pluck('name')->toArray();
-        return Inertia::render('User/Edit', [
+        return Inertia::render('Admin/Setting/User/Edit', [
             'user' => $user,
             'roles' => $roles,
             'hasRoles' => $hasRoles,
@@ -75,14 +77,24 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update(array_merge(
-            $request->validated(),
-            $request->filled('password') ? ['password' => bcrypt($request->password)] : []
-        ));
-        $user->syncRoles($request->role);
-        return to_route('admin.users.index')->with('success', 'User updated successfully.');
+        $data = $request->validated();
 
+        // If password is filled, hash it, otherwise remove from update
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        // Sync roles
+        $roles = Role::whereIn('id', $request->role)->pluck('name')->toArray();
+        $user->syncRoles($roles);
+
+        return to_route('admin.users.index')->with('success', 'User updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -29,7 +29,8 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique('users')->ignore($this->user)
             ],
             'password' => ['nullable', Password::min(5)->letters()],
-            'role'=>['required','array','exists:roles,name']
+            'role' => ['required', 'array'],
+            'role.*' => ['exists:roles,id'],
         ];
     }
 }
