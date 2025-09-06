@@ -8,6 +8,7 @@ import { columns } from './columns';
 import { ServerPagination } from '../../../../components/ServerPagination';
 import { create, index } from '@/routes/admin/permissions';
 import { DataTable } from '@/components/data-table';
+import useFlashToast from '@/components/useFlashToast';
 
 interface Props {
   permissions: PaginatedData<Permission>;
@@ -21,6 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function PermissionIndex({ permissions }: Props) {
+    useFlashToast()
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Permissions" />

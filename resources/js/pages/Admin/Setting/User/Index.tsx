@@ -8,6 +8,7 @@ import { DataTable } from '@/components/data-table';
 import { columns } from './columns';
 import { User } from '@/types/Admin/Setting/user';
 import users, { create, index } from '@/routes/admin/users';
+import useFlashToast from '@/components/useFlashToast';
 
 interface UserProps {
     users: PaginatedData<User>;
@@ -22,6 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function RoleIndex() {
     const { users } = usePage<{ users: UserProps }>().props
+    useFlashToast()
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Users" />

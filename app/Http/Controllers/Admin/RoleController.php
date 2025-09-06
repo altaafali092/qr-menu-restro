@@ -41,7 +41,7 @@ class RoleController extends Controller
     {
 
 
-            dd($request->all());
+            // dd($request->all());
             $role = Role::create($request->validated());
             $permissions = Permission::whereIn('id', $request->permissions)->get();
             $role->syncPermissions($permissions);

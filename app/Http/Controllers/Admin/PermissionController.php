@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Permission\StorePermissionRequest;
 use App\Http\Requests\Admin\Permission\UpdatePermissionRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 
@@ -16,6 +17,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('view permission')) {
+            return back()->with('error','You are not allowed to access Project.');
+        }
         $permissions = Permission::latest()->paginate(6);
         return Inertia::render('Admin/Setting/Permission/Index', [
             'permissions' => $permissions,
@@ -27,6 +31,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('create permission')) {
+            return back()->with('error','You are not allowed to access Project.');
+        }
         return Inertia::render('Admin/Setting/Permission/Create');
     }
 
@@ -35,6 +42,9 @@ class PermissionController extends Controller
      */
     public function store(StorePermissionRequest $request)
     {
+        if (!Auth::user()->can('create permission')) {
+            return back()->with('error','You are not allowed to access Project.');
+        }
         Permission::create($request->validated());
         return to_route('admin.permissions.index')
             ->with('success', 'Permission created successfully');
@@ -53,6 +63,9 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
+        if (!Auth::user()->can('edit permission')) {
+            return back()->with('error','You are not allowed to access Project.');
+        }
         return Inertia::render('Admin/Setting/Permission/Edit', [
             'permission' => $permission,
         ]);
@@ -63,6 +76,9 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
+        if (!Auth::user()->can('create permission')) {
+            return back()->with('error','You are not allowed to access Project.');
+        }
         $permission->update($request->validated());
         return to_route('admin.permissions.index')
             ->with('success', 'Permission updated successfully');
@@ -73,6 +89,9 @@ class PermissionController extends Controller
      */
     public function destroy(permission $permission)
     {
+        if (!Auth::user()->can('delete permission')) {
+            return back()->with('error','You are not allowed to access Project.');
+        }
         $permission->delete();
 
         return back()->with('success', 'permission deteled');

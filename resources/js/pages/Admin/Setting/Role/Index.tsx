@@ -8,6 +8,7 @@ import { create, index } from '@/routes/admin/roles';
 import { DataTable } from '@/components/data-table';
 import { Role } from '@/types/Admin/Setting/role';
 import { columns } from './columns';
+import useFlashToast from '@/components/useFlashToast';
 
 interface RoleProps {
     roles: PaginatedData<Role>;
@@ -22,6 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function RoleIndex() {
     const { roles } = usePage<{ roles: RoleProps }>().props
+    useFlashToast()
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Roles" />
