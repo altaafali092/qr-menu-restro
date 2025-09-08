@@ -4,13 +4,14 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import {  LayoutGrid, LucideSettings2, Shield, UserCheck, UserPlus } from 'lucide-react';
+import {  CookingPot, LayoutGrid, LucideSettings2, Shield, UserCheck, UserPlus } from 'lucide-react';
 import AppLogo from './app-logo';
 
 import { dashboard } from '@/routes/admin';
 import { index as permissionsIndex } from '@/routes/admin/permissions';
 import { index as rolesIndex } from '@/routes/admin/roles';
 import { index as usersIndex } from '@/routes/admin/users';
+import{index as foodCategoryIndex} from '@/routes/admin/food-categorys'
 
 
 
@@ -21,6 +22,11 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'FoodCategory',
+        href: foodCategoryIndex(),
+        icon: CookingPot,
     },
     {
         title: "Settings",
