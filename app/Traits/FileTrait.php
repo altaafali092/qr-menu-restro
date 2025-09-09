@@ -46,8 +46,11 @@ trait FileTrait
                         if (!empty($file)) {
                             if (Helper::isUrl($file)) {
                                 $paths[] = $file;
-                            } else {
+                            } elseif ($file instanceof \Illuminate\Http\UploadedFile) {
                                 $paths[] = $file->store($defaultPath, 'public');
+                            } else {
+                                // Already stored path (string)
+                                $paths[] = $file;
                             }
                         }
                     }
@@ -56,14 +59,18 @@ trait FileTrait
                     if (!empty($value)) {
                         if (Helper::isUrl($value)) {
                             return $value;
-                        } else {
+                        } elseif ($value instanceof \Illuminate\Http\UploadedFile) {
                             return $value->store($defaultPath, 'public');
+                        } else {
+                            // Already stored path (string)
+                            return $value;
                         }
                     } else {
                         return null;
                     }
                 }
             }
+
         );
     }
 }

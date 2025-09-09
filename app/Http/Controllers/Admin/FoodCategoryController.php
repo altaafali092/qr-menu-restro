@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FoodCategory\StoreFoodCategoryRequest;
+use App\Http\Requests\Admin\FoodCategory\UpdateFoodCategoryRequest;
 use App\Models\Admin\FoodCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class FoodCategoryController extends Controller
@@ -51,24 +53,56 @@ class FoodCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(FoodCategory $foodCategory)
     {
-        //
+        return Inertia::render('Admin/FoodCategory/Edit',[
+            'foodCategory'=>$foodCategory,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function update(UpdateFoodCategoryRequest $request, FoodCategory $foodCategory)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+
+            if ($foodCategory->getRawOriginal('image') && Storage::disk('public')->exists($foodCategory->getRawOriginal('image'))) {
+                Storage::disk('public')->delete($foodCategory->getRawOriginal('image'));
+            }
+
+            // Store new image
+            $path = $request->file('image')->store('FoodCategory', 'public');
+            $data['image'] = $path;
+        } else {
+            // keep the old image
+            $data['image'] = $foodCategory->getRawOriginal('image');
+        }
+
+        $foodCategory->update($data);
+
+        return to_route('admin.food-categorys.index')
+            ->with('success', 'Food Category updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(FoodCategory $foodCategory)
     {
-        //
+        $imagePath = $foodCategory->getRawOriginal('image');
+
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+
+        $foodCategory->delete();
+
+        return back()->with('success', 'Food Category deleted successfully.');
     }
 }

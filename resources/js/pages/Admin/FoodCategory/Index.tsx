@@ -10,42 +10,42 @@ import { FoodCategory } from '@/types/Admin/Food';
 import { create, index } from '@/routes/admin/food-categorys';
 
 interface Props {
-  foodCategorys: PaginatedData<FoodCategory>;
+    foodCategorys: PaginatedData<FoodCategory>;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Food-Categories',
-    href: index().url,
-  },
+    {
+        title: 'Food-Categories',
+        href: index().url,
+    },
 ];
 
 export default function FoodCategoryIndex({ foodCategorys }: Props) {
     useFlashToast()
-  return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Food-Categories" />
-      <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">Food Categories</h1>
-            <p className="text-muted-foreground">
-              Manage application Food Categories and access controls.
-            </p>
-          </div>
-          <Button asChild>
-            <Link href={create().url} className="flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Create Category
-            </Link>
-          </Button>
-        </div>
+    return (
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title="Food-Categories" />
+            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-bold tracking-tight">Food Categories</h1>
+                        <p className="text-muted-foreground">
+                            Manage application Food Categories and access controls.
+                        </p>
+                    </div>
+                    <Button asChild>
+                        <Link href={create().url} className="flex items-center gap-2">
+                            <Plus className="h-4 w-4" />
+                            Create Category
+                        </Link>
+                    </Button>
+                </div>
 
-        {/* Data Table */}
-        <div className="flex-1">
-          <div className="container mx-auto py-10">
-            <DataTable columns={columns} data={foodCategorys.data} />
-            {/* <ServerPagination
+                {/* Data Table */}
+                <div className="flex-1">
+                    <div className="container mx-auto py-10">
+                        <DataTable columns={columns} data={foodCategorys.data} />
+                        {/* <ServerPagination
               page={permissions.current_page}
               lastPage={permissions.last_page}
               total={permissions.total}
@@ -53,9 +53,9 @@ export default function FoodCategoryIndex({ foodCategorys }: Props) {
               to={permissions.to}
               links={permissions.links}
             /> */}
-          </div>
-        </div>
-      </div>
-    </AppLayout>
-  );
+                    </div>
+                </div>
+            </div>
+        </AppLayout>
+    );
 }

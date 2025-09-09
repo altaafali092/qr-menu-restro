@@ -23,7 +23,7 @@ export const columns: ColumnDef<FoodCategory>[] = [
                 <img
                     src={image}
                     alt={row.getValue("name")}
-                    className="h-32 w-32 object-cover rounded"
+                    className="h-20 w-20 object-fill rounded"
                 />
             ) : (
                 <div className="h-32 w-32 rounded bg-gray-200" />

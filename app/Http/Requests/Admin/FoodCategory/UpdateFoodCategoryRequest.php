@@ -23,7 +23,7 @@ class UpdateFoodCategoryRequest extends FormRequest
     {
         return [
             'name'=>['required','string'],
-            'image'=>['nullable','string','max:2048'],
+            'image'=>['nullable','image','max:2048'],
             'description'=>['nullable','string']
         ];
     }
