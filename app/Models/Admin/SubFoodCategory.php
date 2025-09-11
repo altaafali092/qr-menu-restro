@@ -6,32 +6,29 @@ use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FoodCategory extends Model
+class SubFoodCategory extends Model
 {
     use HasFactory,SoftDeletes,FileTrait;
-
     protected $fillable=[
+        'food_category_id',
         'name',
         'image',
-        'description',
         'status',
-
+        'description',
     ];
-    protected $casts = [
+    protected $casts=[
         'status' => 'boolean',
     ];
 
     public function image(): Attribute
     {
-        return $this->castingFile(defaultPath: 'FoodCategory');
+        return $this->castingFile(defaultPath: 'SubFoodCategory');
     }
-
-    public function subFoodCategorys(): HasMany
+    public function foodCategory(): BelongsTo
     {
-        return $this->hasMany(SubFoodCategory::class);
+        return $this->belongsTo(foodCategory::class);
     }
-
 }
