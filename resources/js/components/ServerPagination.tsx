@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { type PaginationLink } from "@/types";
 import { router } from "@inertiajs/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { type PaginationLink } from "@/types";
 
 interface ServerPaginationProps {
   page: number;
@@ -22,33 +22,22 @@ export function ServerPagination({
 }: ServerPaginationProps) {
   const handlePageChange = (url: string | null) => {
     if (!url) return;
-    
-    router.get(url, {}, {
-      preserveScroll: true,
-      preserveState: true,
-    });
+    router.get(url, {}, { preserveScroll: true, preserveState: true });
   };
 
-  // Find prev and next links from the links array
-  const prevLink = links.find(link => link.label === "&laquo; Previous");
-  const nextLink = links.find(link => link.label === "Next &raquo;");
-  
-  // Filter out prev/next links to get only page number links
-  const pageLinks = links.filter(link => 
-    link.label !== "&laquo; Previous" && 
-    link.label !== "Next &raquo;" &&
-    link.label !== "..."
-  );
+  const prevLink = links.find(link => link.label.includes("Previous"));
+  const nextLink = links.find(link => link.label.includes("Next"));
+
+  // Filter out only the numeric page links
+  const pageLinks = links.filter(link => !isNaN(Number(link.label)));
 
   return (
-    <div className="flex items-center justify-between space-x-2 py-4">
+    <div className="flex flex-col sm:flex-row items-center justify-between py-4 gap-2">
       {/* Results Info */}
       <div className="text-sm text-muted-foreground">
-        {total === 0 ? (
-          "Showing 0 results"
-        ) : (
-          `Showing ${from || 0} to ${to || 0} of ${total} results`
-        )}
+        {total === 0
+          ? "Showing 0 results"
+          : `Showing ${from || 0} to ${to || 0} of ${total} results`}
       </div>
 
       {/* Pagination Controls */}
@@ -68,23 +57,18 @@ export function ServerPagination({
 
           {/* Page Number Buttons */}
           <div className="flex items-center space-x-1">
-            {pageLinks.map((link, index) => {
-              const isCurrentPage = link.active;
-              const pageNumber = parseInt(link.label);
-
-              return (
-                <Button
-                  key={`${link.label}-${index}`}
-                  variant={isCurrentPage ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handlePageChange(link.url)}
-                  disabled={isCurrentPage}
-                  className="min-w-[2.5rem]"
-                >
-                  {link.label}
-                </Button>
-              );
-            })}
+            {pageLinks.map((link, index) => (
+              <Button
+                key={`${link.label}-${index}`}
+                variant={link.active ? "default" : "outline"}
+                size="sm"
+                onClick={() => handlePageChange(link.url)}
+                disabled={link.active}
+                className="min-w-[2.5rem]"
+              >
+                {link.label}
+              </Button>
+            ))}
           </div>
 
           {/* Next Button */}

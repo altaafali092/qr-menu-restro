@@ -8,6 +8,7 @@ import { DataTable } from '@/components/data-table';
 import useFlashToast from '@/components/useFlashToast';
 import { FoodCategory } from '@/types/Admin/Food';
 import { create, index } from '@/routes/admin/food-categorys';
+import { ServerPagination } from '@/components/ServerPagination';
 
 interface Props {
     foodCategorys: PaginatedData<FoodCategory>;
@@ -45,14 +46,14 @@ export default function FoodCategoryIndex({ foodCategorys }: Props) {
                 <div className="flex-1">
                     <div className="container mx-auto py-10">
                         <DataTable columns={columns} data={foodCategorys.data} />
-                        {/* <ServerPagination
-              page={permissions.current_page}
-              lastPage={permissions.last_page}
-              total={permissions.total}
-              from={permissions.from}
-              to={permissions.to}
-              links={permissions.links}
-            /> */}
+                        <ServerPagination
+                            page={foodCategorys.current_page}
+                            lastPage={foodCategorys.last_page}
+                            total={foodCategorys.total}
+                            from={foodCategorys.from}
+                            to={foodCategorys.to}
+                            links={foodCategorys.links}
+                        />
                     </div>
                 </div>
             </div>

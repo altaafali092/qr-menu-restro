@@ -1,9 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Link, router } from "@inertiajs/react";
-import { Pencil, Trash } from "lucide-react";
+import { Eye, Pencil, ScanEye, Trash } from "lucide-react";
 import { FoodCategory } from "@/types/Admin/Food";
-import { destroy, edit, updateStatus } from "@/routes/admin/food-categorys";
+import { destroy, edit, show, updateStatus } from "@/routes/admin/food-categorys";
 import { Switch } from "@/components/ui/switch";
 
 
@@ -73,6 +73,11 @@ export const columns: ColumnDef<FoodCategory>[] = [
                     <Button variant="outline" size="sm" asChild>
                         <Link href={edit(foodCategory.id)}>
                             <Pencil className="h-4 w-4" />
+                        </Link>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild>
+                        <Link href={show(foodCategory.id)}>
+                            <ScanEye className="h-4 w-4" />
                         </Link>
                     </Button>
                     <Button
