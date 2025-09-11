@@ -24,11 +24,6 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-    // {
-    //     title: 'FoodCategory',
-    //     href: foodCategoryIndex(),
-    //     icon: CookingPot,
-    // },
     {
         title: "Food",
         href: "#",
