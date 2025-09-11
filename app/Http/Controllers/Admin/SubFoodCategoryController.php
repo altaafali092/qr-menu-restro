@@ -51,9 +51,11 @@ class SubFoodCategoryController extends Controller
     public function show(SubFoodCategory $subFoodCategory)
     {
         return Inertia::render('Admin/SubFoodCategory/Show',[
-        'SubFoodCategory'=> $subFoodCategory,
+        'subFoodCategory'=> $subFoodCategory,
         ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
