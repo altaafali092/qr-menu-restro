@@ -71,7 +71,7 @@ class FoodCategoryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-
+            // New image is uploaded, delete the old one
             if ($foodCategory->getRawOriginal('image') && Storage::disk('public')->exists($foodCategory->getRawOriginal('image'))) {
                 Storage::disk('public')->delete($foodCategory->getRawOriginal('image'));
             }
@@ -79,9 +79,17 @@ class FoodCategoryController extends Controller
             // Store new image
             $path = $request->file('image')->store('FoodCategory', 'public');
             $data['image'] = $path;
+        } elseif (array_key_exists('image', $data) && $data['image'] === null) {
+            // Image field is null, so user wants to remove the image
+            if ($foodCategory->getRawOriginal('image') && Storage::disk('public')->exists($foodCategory->getRawOriginal('image'))) {
+                Storage::disk('public')->delete($foodCategory->getRawOriginal('image'));
+            }
+            // The 'image' key in $data is already null from validation
         } else {
-            // keep the old image
-            $data['image'] = $foodCategory->getRawOriginal('image');
+            // No new image uploaded and no explicit removal, so keep the old image.
+            // We achieve this by unsetting the 'image' key from the data array,
+            // so the update operation doesn't change it.
+            unset($data['image']);
         }
 
         $foodCategory->update($data);
