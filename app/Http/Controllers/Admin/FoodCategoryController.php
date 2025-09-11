@@ -45,9 +45,11 @@ class FoodCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(FoodCategory $foodCategory)
     {
-        //
+        return Inertia::render('Admin/FoodCategory/Show',[
+            'foodCategory'=>$foodCategory
+        ]);
     }
 
     /**
