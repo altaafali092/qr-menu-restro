@@ -105,4 +105,11 @@ class FoodCategoryController extends Controller
 
         return back()->with('success', 'Food Category deleted successfully.');
     }
+    public function updateStatus(FoodCategory $foodCategory)
+    {
+        $foodCategory->update([
+            'status' => !$foodCategory->status,
+        ]);
+        return back()->with('success', 'Food Category Status Updated Successfully');
+    }
 }

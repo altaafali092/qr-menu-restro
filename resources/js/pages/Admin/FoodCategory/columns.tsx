@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Link, router } from "@inertiajs/react";
 import { Pencil, Trash } from "lucide-react";
 import { FoodCategory } from "@/types/Admin/Food";
-import { destroy, edit } from "@/routes/admin/food-categorys";
+import { destroy, edit, updateStatus } from "@/routes/admin/food-categorys";
+import { Switch } from "@/components/ui/switch";
 
 
 
@@ -36,16 +37,30 @@ export const columns: ColumnDef<FoodCategory>[] = [
     },
     {
         accessorKey: "status",
-        header: "status",
-        cell: ({row})=>{
-            const foodCategory=row.original;
-            return(
-                <div>
-                    hello
+        header: "Status",
+        cell: ({ row }) => {
+            const foodCategory = row.original;
+            const updateToggle = () => {
+                router.get(updateStatus(foodCategory.id), {}, { preserveScroll: true });
+            };
+
+            return (
+                <div className="flex items-center gap-2">
+                    <Switch
+                        checked={foodCategory.status}
+                        onCheckedChange={updateToggle}
+                    />
+                    <span
+                        className={`text-sm font-medium ${foodCategory.status ? "text-green-600" : "text-red-600"
+                            }`}
+                    >
+                        {foodCategory.status ? "Active" : "Inactive"}
+                    </span>
                 </div>
-            )
-        }
+            );
+        },
     },
+
     {
         id: "actions",
         header: "Actions",
@@ -60,8 +75,6 @@ export const columns: ColumnDef<FoodCategory>[] = [
                             <Pencil className="h-4 w-4" />
                         </Link>
                     </Button>
-
-                    {/* Delete */}
                     <Button
                         variant="destructive"
                         size="sm"

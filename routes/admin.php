@@ -13,4 +13,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('roles',RoleController::class);
     Route::resource('users',UserController::class);
     Route::resource('food-categorys',FoodCategoryController::class);
+    Route::get('food-categorys/{foodCategory}/update-status', [FoodCategoryController::class, 'updateStatus'])->name('food-categorys.updateStatus');
 });
