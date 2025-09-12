@@ -15,3 +15,13 @@ export type SubFoodCategory={
     'description':string,
     'status':boolean,
 }
+export type MenuItem={
+    'id':number,
+    'sub_food_category_id':number,
+    'sub_food_category'?: SubFoodCategory,
+    'name':string,
+    'description':string,
+    'image':string,
+    'status':boolean,
+    'price':number
+}

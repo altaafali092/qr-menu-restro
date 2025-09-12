@@ -50,6 +50,7 @@ class SubFoodCategoryController extends Controller
      */
     public function show(SubFoodCategory $subFoodCategory)
     {
+        $subFoodCategory->load('foodCategory');
         return Inertia::render('Admin/SubFoodCategory/Show',[
         'subFoodCategory'=> $subFoodCategory,
         ]);

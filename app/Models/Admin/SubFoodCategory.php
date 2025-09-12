@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubFoodCategory extends Model
@@ -30,5 +31,11 @@ class SubFoodCategory extends Model
     public function foodCategory(): BelongsTo
     {
         return $this->belongsTo(foodCategory::class);
+    }
+
+
+    public function menuItems(): HasMany
+    {
+        return $this->hasMany(MenuItem::class, 'sub_food_category_id');
     }
 }

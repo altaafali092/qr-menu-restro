@@ -4,15 +4,16 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import {  CookingPot, CookingPotIcon, LayoutGrid, LucideSettings2, Salad, Shield, UserCheck, UserPlus, Vegan } from 'lucide-react';
+import { Carrot, CarrotIcon, CookingPot, CookingPotIcon, LayoutGrid, LucideSettings2, Salad, Shield, UserCheck, UserPlus, Vegan } from 'lucide-react';
 import AppLogo from './app-logo';
 
 import { dashboard } from '@/routes/admin';
 import { index as permissionsIndex } from '@/routes/admin/permissions';
 import { index as rolesIndex } from '@/routes/admin/roles';
 import { index as usersIndex } from '@/routes/admin/users';
-import{index as foodCategoryIndex} from '@/routes/admin/food-categorys'
+import { index as foodCategoryIndex } from '@/routes/admin/food-categorys'
 import { index as subFoodCategoryIndex } from '@/routes/admin/sub-food-categories';
+import { index as menuItemIndex } from '@/routes/admin/menu-items';
 
 
 
@@ -24,12 +25,12 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
-    
+
     {
         title: "Food",
         href: "#",
         icon: CookingPot,
-        items:[
+        items: [
             {
                 title: "FoodCategory",
                 href: foodCategoryIndex(),
@@ -40,6 +41,11 @@ const mainNavItems: NavItem[] = [
                 href: subFoodCategoryIndex(),
                 icon: Vegan
             },
+            {
+                title: "Menu Items",
+                href: menuItemIndex(),
+                icon: Carrot
+            },
         ]
     }
     ,
@@ -47,7 +53,7 @@ const mainNavItems: NavItem[] = [
         title: "Settings",
         href: "#",
         icon: LucideSettings2,
-        items:[
+        items: [
             {
                 title: "Permissions",
                 href: permissionsIndex(),

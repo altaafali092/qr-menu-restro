@@ -11,7 +11,6 @@ import { index } from "@/routes/admin/sub-food-categories"
 
 interface Props {
   subFoodCategory: SubFoodCategory
-  foodCategory:FoodCategory
 }
 
 export default function SubFoodCategoryView({ subFoodCategory }: Props) {
@@ -100,7 +99,7 @@ console.log(subFoodCategory)
                     Food Category
                   </h3>
                   <p className="text-xl font-medium text-gray-400">
-                    {subFoodCategory.food_category_id}
+                    {subFoodCategory.food_category?.name}
                   </p>
                 </div>
 
