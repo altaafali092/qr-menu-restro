@@ -17,10 +17,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-       $roles=Role::with('permissions')->latest()->paginate(6);
-       return Inertia::render('Admin/Setting/Role/Index',[
-        'roles'=>$roles,
-       ]);
+        $roles = Role::with('permissions')->latest()->paginate(6);
+        return Inertia::render('Admin/Setting/Role/Index', [
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -28,9 +28,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions=Permission::latest()->get();
-        return Inertia::render('Admin/Setting/Role/Create',[
-            'permissions'=>$permissions
+        $permissions = Permission::latest()->get();
+        return Inertia::render('Admin/Setting/Role/Create', [
+            'permissions' => $permissions
         ]);
     }
 
@@ -41,12 +41,11 @@ class RoleController extends Controller
     {
 
 
-            // dd($request->all());
-            $role = Role::create($request->validated());
-            $permissions = Permission::whereIn('id', $request->permissions)->get();
-            $role->syncPermissions($permissions);
-            return to_route('admin.roles.index')->with('success', 'Role created successfully');
-
+        // dd($request->all());
+        $role = Role::create($request->validated());
+        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        $role->syncPermissions($permissions);
+        return to_route('admin.roles.index')->with('success', 'Role created successfully');
     }
 
     /**
@@ -57,12 +56,12 @@ class RoleController extends Controller
 
         $permissions = Permission::all(); // all permissions
 
-       $hasPermissions = $role->permissions->pluck('name')->toArray();
-      return Inertia::render('Admin/Setting/Role/Show',[
-    'role' => $role,
-    'permissions' => $permissions,
-    'hasPermissions' => $hasPermissions,
-           ]);
+        $hasPermissions = $role->permissions->pluck('name')->toArray();
+        return Inertia::render('Admin/Setting/Role/Show', [
+            'role' => $role,
+            'permissions' => $permissions,
+            'hasPermissions' => $hasPermissions,
+        ]);
     }
 
     /**

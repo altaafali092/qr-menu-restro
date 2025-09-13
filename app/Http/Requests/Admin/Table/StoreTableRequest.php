@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\MenuItem;
+namespace App\Http\Requests\Admin\Table;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMenuItemRequest extends FormRequest
+class StoreTableRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,8 @@ class UpdateMenuItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sub_food_category_id' => ['required', 'exists:sub_food_categories,id,status,1'],
-            'name'=>['required','string'],
-            'description'=>['required','string'],
-            'price'=>['required','string'],
-            'image' => ['nullable','array','min:1'],
-            'image.*' => ['image','mimes:jpeg,png,jpg,gif,webp','max:2048'],
+            'name'=>['required','string','unique:tables','max:255'],
+          
         ];
     }
 }

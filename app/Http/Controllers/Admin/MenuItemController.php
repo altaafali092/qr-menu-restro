@@ -48,9 +48,11 @@ class MenuItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(MenuItem $menuItem)
     {
-        //
+        return Inertia::render('Admin/MenuItem/Show',[
+            'menuItem'=>$menuItem,
+        ]);
     }
 
     /**
