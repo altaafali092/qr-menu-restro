@@ -58,9 +58,11 @@ class MenuItemController extends Controller
      */
     public function edit(MenuItem $menuItem)
     {
-        $subFoodCategory=SubFoodCategory::with('status',1)->latest()->get();
+        $subFoodCategories=SubFoodCategory::where('status',1)->latest()->get();
+        $menuItem->load('subFoodCategory');
         return Inertia::render('Admin/MenuItem/Edit',[
-            'subFoodCategory'=>$subFoodCategory,
+            'subFoodCategories'=>$subFoodCategories,
+            'menuItem'=>$menuItem,
         ]);
     }
 
