@@ -42,31 +42,36 @@ class TableController extends Controller
             ->with('success', 'Table created with QR code!');
     }
 
-    public function show(MenuItem $menuItem)
+    public function show(Table $table)
     {
         return  Inertia::render('Admin/Table/Show', [
-            'menuItem' => $menuItem,
+            'table' => $table,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MenuItem $menuItem)
+    public function edit(Table $table)
     {
         return Inertia::render('Admin/Table/Edit', [
-            'menuItem' => $menuItem,
+            'table' => $table,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTableRequest $request, MenuItem $menuItem)
+    public function update(UpdateTableRequest $request, Table $table)
     {
-        $menuItem->update($request->validated());
-        return to_route('admin.menuItems.index')
-            ->with('success', 'Menu item updated successfully');
+        $table->update($request->validated());
+
+        if ($table->wasChanged('name') || !$table->qr_code_path) {
+            $table->generateQrCode();
+        }
+
+        return to_route('admin.tables.index')
+            ->with('success', 'Table updated successfully');
     }
 
     /**
