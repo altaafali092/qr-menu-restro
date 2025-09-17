@@ -1,6 +1,7 @@
 import { Table } from "./table"
 
 export type Order = {
+    'id': number,
     'table_id': number,
     'table'?: Table[],
     'status': string,

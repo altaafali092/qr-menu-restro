@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FoodCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SubFoodCategoryController;
@@ -24,4 +25,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('menu-items/{menuItem}/update-status', [MenuItemController::class, 'updateStatus'])->name('menu-items.updateStatus');
     Route::resource('tables',TableController::class);
     Route::get('tables/{table}/update-status', [TableController::class, 'updateStatus'])->name('tables.updateStatus');
+    Route::resource('orders',OrderController::class);
+    // Route::get('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });

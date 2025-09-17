@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Carrot, CarrotIcon, CookingPot, CookingPotIcon, LayoutGrid, LucideSettings2, Salad, Shield, Table, UserCheck, UserPlus, Vegan } from 'lucide-react';
+import { Carrot, CarrotIcon, CookingPot, CookingPotIcon, LayoutGrid, LucideSettings2, Salad, Shield, ShoppingBag, Table, UserCheck, UserPlus, Vegan } from 'lucide-react';
 import AppLogo from './app-logo';
 
 import { dashboard } from '@/routes/admin';
@@ -15,6 +15,7 @@ import { index as foodCategoryIndex } from '@/routes/admin/food-categorys'
 import { index as subFoodCategoryIndex } from '@/routes/admin/sub-food-categories';
 import { index as menuItemIndex } from '@/routes/admin/menu-items';
 import { index as tableIndex } from '@/routes/admin/tables';
+import { index as orderIndex } from '@/routes/admin/orders';
 
 
 
@@ -53,8 +54,12 @@ const mainNavItems: NavItem[] = [
         title: 'Tables',
         href: tableIndex(),
         icon: Table,
-    }
-    ,
+    },
+    {
+        title: 'Orders',
+        href: orderIndex(),
+        icon: ShoppingBag,
+    },
     {
         title: "Settings",
         href: "#",
