@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[FrontendController::class, 'index'])->name('home');
 Route::get('/order',[FrontendController::class, 'order'])->name('order');
 
-Route::get('/subcategory/{subFoodCategory}',[FrontendController::class, 'subCategory'])->name('subcategory');
+Route::get('/subcategory/{foodCategory}',[FrontendController::class, 'subCategory'])->name('subcategory');
+Route::get('/menu/{menuItem}',[FrontendController::class, 'itemDetail'])->name('itemDetail');
 
-Route::get('/menu',[FrontendController::class, 'menu'])->name('menu');
 
 
 

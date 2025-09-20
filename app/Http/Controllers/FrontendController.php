@@ -16,18 +16,26 @@ class FrontendController extends Controller
             'foodCategories' => $foodCategories
         ]);
     }
-    public function subCategory(SubFoodCategory $subFoodCategory){
-        $subFoodCategory->load('foodCategory');
-        return Inertia::render('Frontend/SubCategory', [
-            'subFoodCategory' => $subFoodCategory,
+    public function subCategory(FoodCategory $foodCategory)
+    {
+        $subFoodCategories = $foodCategory
+            ->subFoodCategories()
+            ->where('status', 1)
+            ->with('foodCategory') // include parent info
+            ->latest()
+            ->get();
 
+        return Inertia::render('Frontend/SubCategory', [
+            'foodCategory'      => $foodCategory,
+            'subFoodCategories' => $subFoodCategories,
         ]);
     }
-    public function menu()
+
+  
+    public function itemDetail(MenuItem $menuItem)
     {
-        $menuItems = MenuItem::where('status', 1)->latest()->get();
-        return Inertia::render('Frontend/Menu', [
-            'menuItems' => $menuItems
+        return Inertia::render('Frontend/ItemDetail', [
+            'menuItem' => $menuItem
         ]);
     }
     public function order()

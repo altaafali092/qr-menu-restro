@@ -12,15 +12,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubFoodCategory extends Model
 {
-    use HasFactory,SoftDeletes,FileTrait;
-    protected $fillable=[
+    use HasFactory, SoftDeletes, FileTrait;
+    protected $fillable = [
         'food_category_id',
         'name',
         'image',
         'status',
         'description',
     ];
-    protected $casts=[
+    protected $casts = [
         'status' => 'boolean',
     ];
 
@@ -30,7 +30,7 @@ class SubFoodCategory extends Model
     }
     public function foodCategory(): BelongsTo
     {
-        return $this->belongsTo(foodCategory::class);
+        return $this->belongsTo(FoodCategory::class, 'food_category_id');
     }
 
 

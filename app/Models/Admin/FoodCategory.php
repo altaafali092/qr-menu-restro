@@ -31,7 +31,7 @@ class FoodCategory extends Model
 
     public function subFoodCategories(): HasMany
     {
-        return $this->hasMany(SubFoodCategory::class);
+        return $this->hasMany(SubFoodCategory::class, 'food_category_id');
     }
 
 }

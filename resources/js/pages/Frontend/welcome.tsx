@@ -4,13 +4,14 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FoodCategory } from "@/types/Frontend"
-import {  login, register, subcategory } from '@/routes';
+import {  subcategory } from '@/routes';
 
 interface Props {
   foodCategories: FoodCategory[]
 }
 
 export default function Index({ foodCategories }: Props) {
+  console.log(foodCategories);
   return (
     <>
       <Head title="QR Menu" />
