@@ -34,6 +34,7 @@ class FrontendController extends Controller
   
     public function itemDetail(MenuItem $menuItem)
     {
+        $menuItem->load(['subFoodCategory','subFoodCategory.foodCategory']);
         return Inertia::render('Frontend/ItemDetail', [
             'menuItem' => $menuItem
         ]);
