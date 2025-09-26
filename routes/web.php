@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +12,7 @@ Route::get('/order',[FrontendController::class, 'order'])->name('order');
 Route::get('/subcategory/{foodCategory}',[FrontendController::class, 'subCategory'])->name('subcategory');
 Route::get('/menu/{menuItem}',[FrontendController::class, 'itemDetail'])->name('itemDetail');
 
-
+Route::resource('cart',CartController::class);
 
 
 
